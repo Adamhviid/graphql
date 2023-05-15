@@ -14,4 +14,52 @@ const client = createClient({
   ]
 });
 
-export default client;
+function getAllBlogs() {
+  const query = `
+    query {
+      blogs {
+        blogs {
+          id
+          title
+          author
+        }
+      }
+    }
+  `;
+
+  client.query(query).toPromise().then(result => {
+    const blogs = result.data.blogs.blogs;
+    blogs.forEach((blog) => {
+      const blogDiv = document.createElement("div");
+      blogDiv.innerHTML = `
+          <h3>title: ${blog.title}</h3>
+          <p>author: ${blog.author}</p>
+          `;
+      blogsDiv.appendChild(blogDiv);
+    });
+  });
+
+  const subscriptionQuery = `
+    subscription {
+      reviewBlog {
+        id
+        title
+        author
+      }
+    }
+  `;
+
+  const subscription = client.subscription(subscriptionQuery);
+
+  subscription.subscribe(({ data }) => {
+    const newBlog = data.reviewBlog;
+    const blogDiv = document.createElement("div");
+    blogDiv.innerHTML = `
+          <h3>title: ${newBlog.title}</h3>
+          <p>author: ${newBlog.author}</p>
+          `;
+    blogsDiv.appendChild(blogDiv);
+  });
+}
+
+getAllBlogs();

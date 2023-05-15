@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 
-import typeDefs from './schema.js';
+import typeDefs from './typeDefs.js';
 import resolvers from './resolvers.js';
 
 const app = express();

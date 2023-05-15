@@ -50,20 +50,11 @@ const resolvers = {
   },
   Subscription: {
     newBlog: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator(['NEW_BLOG']),
-        (payload, variables) => {
-          return true;
-        },
-      ),
-      resolve: payload => {
-        return {
-          errors: [],
-          id: payload.blogId,
-        }
-      },
-    },
-  },
+      subscribe(parent, args, { pubsub }) {
+        return pubsub.asyncIterator(['NEW_BLOG'])
+      }
+    }
+  }
 };
 
 export default resolvers;
