@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GraphQL</title>
+  </head>
+  <body>
+    <h2>GraphQL</h2>
+    <div id="blogs"></div>
+
+    <script>
+      const blogsDiv = document.getElementById("blogs");
+      fetch(
+        "http://localhost:4000/graphql?query={blogs{blogs{id,title,author}}}"
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          const blogs = data.data.blogs.blogs;
+          blogs.forEach((blog) => {
+            const blogDiv = document.createElement("div");
+            blogDiv.innerHTML = `
+            <h3>title: ${blog.title}</h3>
+            <p>author: ${blog.author}</p>
+            `;
+            blogsDiv.appendChild(blogDiv);
+          });
+        });
+    </script>
+  </body>
+</html>
