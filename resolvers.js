@@ -1,35 +1,16 @@
+import { withFilter } from 'graphql-subscriptions';
+
 const blogs = [
   {
     id: 1,
     title: 'The Awakening',
     author: 'Kate Chopin',
-    completed: false,
-    ownerId: 1
   },
   {
     id: 2,
     title: 'City of Glass',
     author: 'Paul Auster',
-    completed: false,
-    ownerId: 1
   },
-];
-
-const users = [
-  {
-    id: 1,
-    email: 'test@test.com',
-    password: 'test'
-  }
-];
-
-const tokens = [
-  {
-    id: 1,
-    email: '',
-    password: '',
-    token: 'test',
-  }
 ];
 
 const resolvers = {
@@ -60,49 +41,29 @@ const resolvers = {
         id: blogs.length + 1,
         title,
         author,
-        completed: false,
-        ownerId: 1
       });
       return {
         errors: [],
         id: blogs.length,
       }
     },
-    createUser: (_, { email, password }) => {
-      users.push({
-        id: users.length + 1,
-        email,
-        password
-      });
-      return {
-        errors: [],
-        id: users.length,
-      }
-    },
-    createToken: (_, { email, password }) => {
-      tokens.push({
-        id: tokens.length + 1,
-        email,
-        password,
-        token: 'test'
-      });
-      return {
-        errors: [],
-        /* token: tokens[tokens.length - 1] */
-      }
-    },
   },
   Subscription: {
-    reviewBlog: {
-      subscribe: (_, { token }) => {
-
+    newBlog: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(['NEW_BLOG']),
+        (payload, variables) => {
+          return true;
+        },
+      ),
+      resolve: payload => {
         return {
           errors: [],
-          id: null
+          id: payload.blogId,
         }
       },
     },
   },
 };
 
-export default resolvers
+export default resolvers;

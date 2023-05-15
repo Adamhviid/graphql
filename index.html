@@ -10,25 +10,22 @@
     <h2>GraphQL</h2>
     <div id="blogs"></div>
 
-    <script>
-      const blogsDiv = document.getElementById("blogs");
-      fetch(
-        "http://localhost:4000/graphql?query={blogs{blogs{id,title,author}}}"
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          const blogs = data.data.blogs.blogs;
-          blogs.forEach((blog) => {
-            const blogDiv = document.createElement("div");
-            blogDiv.innerHTML = `
-            <h3>title: ${blog.title}</h3>
-            <p>author: ${blog.author}</p>
-            `;
-            blogsDiv.appendChild(blogDiv);
-          });
-        });
-    </script>
+    <br/>
+
+    <div id="post">
+      <h3>Post</h3>
+      <form id="post-form">
+        <div>
+          <label for="title">Title</label>
+          <input type="text" id="title" />
+        </div>
+        <div>
+          <label for="author">Author</label>
+          <input type="author" id="author" />
+        </div>
+        <button type="submit">Submit</button>
+    </div>
+
+    <script src="script.js"></script>
   </body>
 </html>

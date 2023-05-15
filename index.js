@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
-import { startStandaloneServer } from '@apollo/server/standalone';
-import http from 'http';
 
 import typeDefs from './schema.js';
 import resolvers from './resolvers.js';
@@ -10,7 +8,9 @@ import resolvers from './resolvers.js';
 const app = express();
 app.use(cors());
 
+//workaround for applyMiddlware
 let apolloServer = null;
+
 async function startServer() {
   apolloServer = new ApolloServer({
     typeDefs,
