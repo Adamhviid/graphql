@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 
-import typeDefs from './typeDefs.js';
-import resolvers from './resolvers.js';
+import typeDefs from './graphQL/typeDefs.js';
+import resolvers from './graphQL/resolvers.js';
 
 const app = express();
 app.use(cors());
@@ -30,7 +30,6 @@ async function startServer() {
 startServer();
 
 app.post('/login', async (req, res) => {
-  console.log("login form submitted");
   const { email, password } = req.body;
 
   const formData = new FormData();
@@ -51,9 +50,42 @@ app.post('/login', async (req, res) => {
     });
 });
 
-app.get('/', (req, res) => {
-  res.send('Our GraphQL server is up and running');
-});
+app.post('/register', async (req, res) => {
+  const { email, phone, password, confirmPassword } = req.body;
+
+  const formData = new FormData();
+  formData.append("user_email", email);
+  formData.append("user_phone", phone);
+  formData.append("user_password", password);
+  formData.append("user_password_confirm", confirmPassword);
+
+  await fetch("https://fiotext.com/sign-up", {
+    method: "POST",
+    body: formData
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      res.json(data);
+    })
+})
+
+app.post('/send', async (req, res) => {
+  const { apiKey, phone, message } = req.body;
+
+  const formData = new FormData();
+  formData.append("user_api_key", apiKey);
+  formData.append("sms_to_phone", phone);
+  formData.append("sms_message", message);
+
+  await fetch("https://fiotext.com/send-sms", {
+    method: "POST",
+    body: formData
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      res.json(data);
+    })
+})
 
 app.listen(4000, function () {
   console.log(`server running on port 4000`);

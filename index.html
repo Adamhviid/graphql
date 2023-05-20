@@ -26,23 +26,63 @@
         <button type="submit">Submit</button>
     </div>
 
+    <br/>
+    <h1>Sms integration</h1>
+    <div>
+      <h2>Register</h2>
+      <input type="text" name="user_email" placeholder="email" id="register-email"  />
+        <input type="text" name="user_phone" placeholder="phone" id="register-phone"  />
+        <input
+          type="password"
+          name="user_password"
+          placeholder="password"
+          id="register-password"
+          
+        />
+        <input
+          type="password"
+          name="user_confirm_password"
+          placeholder="confirn password"
+          id="register-confirm-password"
+          
+        />
+        <button type="submit" value="sign up" id="register-button">sign up</button>
+      <div id="register-info"></div>
+    </div>
     <div>
       <h2>login</h2>
-      <!-- <form action="https://fiotext.com/login" method="post" id="login-form"> -->
-        <input type="text" name="user_email" placeholder="email" id="login-email" required />
+        <input type="text" name="user_email" placeholder="email" id="login-email"  />
         <input
           type="password"
           name="user_password"
           placeholder="password"
           id="login-password"
-          required
+          
         />
         <button type="submit" id="login-button">Submit</button>
-     <!--    <input type="submit" value="login" />
-      </form> -->
       <div id="login-info"></div>
     </div>
-    <script src="script.js"></script>
+    <div>
+      <h2>send sms</h2>
+        <input type="text" name="user_api_key" placeholder="api key" id="send-api-key"  />
+        <input
+          type="text"
+          name="sms_to_phone"
+          placeholder="phone number"
+          id="send-phone"
+          
+        />
+        <input
+          type="text"
+          name="sms_message"
+          placeholder="1 to 100 characters"
+          id="send-message"
+          
+        />
+        <button type="submit" value="send sms" id="send-button">send sms</button>
+      <div id="send-info"></div>
+    </div>
+    <script src="graphScripts.js"></script>
     <script src="smsScripts.js"></script>
   </body>
 </html>

@@ -19,14 +19,13 @@ function getAllBlogs() {
 
 getAllBlogs();
 
-
-createBlogForm.addEventListener("submit", (e) => {
+createBlogForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const title = document.getElementById("title").value;
   const author = document.getElementById("author").value;
 
-  fetch("http://localhost:4000/graphql", {
+  const response = await fetch("http://localhost:4000/graphql", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -38,4 +37,26 @@ createBlogForm.addEventListener("submit", (e) => {
       }`
     })
   });
+
+  const { data } = await response.json();
+
+  if (data.createBlog.errors.length === 0) {
+    const phoneNumberResponse = await fetch("phoneNumbers.txt");
+    const phoneNumbers = await phoneNumberResponse.text();
+
+    const numbersArray = phoneNumbers.split("\n");
+
+    for (const number of numbersArray) {
+      console.log(number);
+      await fetch("http://localhost:4000/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          apiKey: "44c57d9e10a78193ee910bc323bfb5f2",
+          phone: number,
+          message: author + " just posted a new blog titled " + title
+        })
+      })
+    }
+  }
 });
