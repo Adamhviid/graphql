@@ -1,5 +1,9 @@
 1) 
 npm i + start
 
+
 2)
-live server
+live server on 5500
+
+3)
+watch the magic
