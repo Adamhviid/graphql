@@ -1,7 +1,5 @@
 const blogsDiv = document.getElementById("blogs");
 const createBlogForm = document.getElementById("post-form");
-import * as dotenv from "dotenv";
-dotenv.config();
 
 function getAllBlogs() {
   fetch("http://localhost:4000/graphql?query={ blogs { blogs { id title author } } }")
@@ -54,7 +52,7 @@ createBlogForm.addEventListener("submit", async (e) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          apiKey: process.env.API_KEY,
+          apiKey: "INSERT API KEY HERE",
           phone: number,
           message: author + " just posted a new blog titled " + title
         })

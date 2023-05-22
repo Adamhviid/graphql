@@ -1,11 +1,11 @@
 1) 
-npm i + start
+npm i + start 
 
 2)
-live server on 5500
+live server on 5500 (virker ikke i Safari)
 
 3)
-register fiotxt
+register fiotxt <br/>
 input API_KEY in .env
 
 3)
