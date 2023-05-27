@@ -52,19 +52,20 @@ const sendButton = document.getElementById("send-button");
 sendButton.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("send form submitted");
-  const apiKey = document.getElementById("send-api-key")
-  const phone = document.getElementById("send-phone")
-  const message = document.getElementById("send-message")
+  const sms_to_phone = document.getElementById("send-phone")
+  const sms_message = document.getElementById("send-message")
   const sendInfo = document.getElementById("send-info")
 
   sendInfo.innerHTML = "Loading...";
+
+  console.log("sending sms to + " + phone.value)
   fetch("http://localhost:4000/send", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      apiKey: apiKey.value,
-      phone: phone.value,
-      message: message.value
+      user_api_key: "44c57d9e10a78193ee910bc323bfb5f2",
+      sms_to_phone: sms_to_phone.value,
+      sms_message: sms_message.value
     })
   }).then((response) => response.json())
     .then((data) => {

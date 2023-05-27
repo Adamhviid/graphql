@@ -52,9 +52,9 @@ createBlogForm.addEventListener("submit", async (e) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          apiKey: "INSERT API KEY HERE",
-          phone: number,
-          message: author + " just posted a new blog titled " + title
+          user_api_key: "INSERT API KEY HERE",
+          sms_to_phone: number,
+          sms_message: author + " just posted a new blog titled " + title
         })
       })
     }

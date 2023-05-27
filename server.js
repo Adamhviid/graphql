@@ -29,6 +29,8 @@ async function startServer() {
 }
 startServer();
 
+
+//SMS
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -70,12 +72,12 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/send', async (req, res) => {
-  const { apiKey, phone, message } = req.body;
+  const { user_api_key, sms_to_phone, sms_message } = req.body;
 
   const formData = new FormData();
-  formData.append("user_api_key", apiKey);
-  formData.append("sms_to_phone", phone);
-  formData.append("sms_message", message);
+  formData.append("user_api_key", user_api_key);
+  formData.append("sms_to_phone", sms_to_phone);
+  formData.append("sms_message", sms_message);
 
   await fetch("https://fiotext.com/send-sms", {
     method: "POST",
@@ -83,6 +85,7 @@ app.post('/send', async (req, res) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       res.json(data);
     })
 })
