@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
-import http from 'http';
 
 import typeDefs from './graphQL/typeDefs.js';
 import resolvers from './graphQL/resolvers.js';
@@ -29,36 +28,6 @@ async function startServer() {
   apolloServer.applyMiddleware({ app });
 }
 startServer();
-
-//failed subscription attempt
-/* 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  playground: true,
-  context: ({ req, connection }) => {
-    if (connection && connection.context) {
-      console.log('Subscription connection:', connection.context);
-      return {}
-    } else {
-      return { req };
-    }
-  },
-  subscriptions: {
-    path: '/subscriptions', 
-    onConnect: (connectionParams, webSocket, context) => {
-      console.log('Client connected');
-    },
-    onDisconnect: (webSocket, context) => {
-      console.log('Client disconnected');
-    },
-  },
-});
-
-async function startServer() {
-  await server.start();
-  server.applyMiddleware({ app });
-} */
 
 //SMS
 app.post('/login', async (req, res) => {
@@ -124,3 +93,33 @@ app.listen(4000, function () {
   console.log(`server running on port 4000`);
   console.log(`gql path is ${apolloServer.graphqlPath}`);
 });
+
+//failed subscription attempt
+/* 
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true,
+  context: ({ req, connection }) => {
+    if (connection && connection.context) {
+      console.log('Subscription connection:', connection.context);
+      return {}
+    } else {
+      return { req };
+    }
+  },
+  subscriptions: {
+    path: '/subscriptions', 
+    onConnect: (connectionParams, webSocket, context) => {
+      console.log('Client connected');
+    },
+    onDisconnect: (webSocket, context) => {
+      console.log('Client disconnected');
+    },
+  },
+});
+
+async function startServer() {
+  await server.start();
+  server.applyMiddleware({ app });
+} */

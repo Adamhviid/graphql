@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/link-ws": "^2.0.0-beta.3",
     "@apollo/server": "^4.7.1",
     "apollo-server-express": "^3.12.0",
     "axios": "^1.4.0",
@@ -21,7 +20,6 @@
     "express": "^4.18.2",
     "graphql": "^16.6.0",
     "graphql-subscriptions": "^2.0.0",
-    "http": "^0.0.1-security",
     "subscriptions-transport-ws": "^0.11.0",
     "urql": "^4.0.2",
     "ws": "^8.13.0"
