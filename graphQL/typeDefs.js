@@ -5,34 +5,21 @@ const typeDefs = gql`
     id: ID!
     title: String!
     author: String!
-  }
-
-  type BlogResult {
-    errors: [String]
-    blog: Blog
-  }
-
-  type BlogsResult {
-    errors: [String]
-    blogs: [Blog]
-  }
-
-  type InsertResult {
-    errors: [String]
-    id: ID
-  }
+  }  
 
   type Query {
-    blogs: BlogsResult!
-    blog(blogId: ID!): BlogResult!
+    getBlogs(query: String):[Blog!]!
+    getBlog(id: ID!): Blog!
   }
 
   type Mutation {
-    createBlog(title: String!, author: String!): InsertResult!
+    createBlog(title: String!, author: String!): Blog!
+    updateBlog(id: ID!, title: String!, author: String!): Blog!
+    deleteBlog(id: ID!): Blog!
   }
 
   type Subscription {
-    newBlog: Blog
+    blog: Blog!
   }
 `
 

@@ -7,82 +7,43 @@
     <title>GraphQL</title>
   </head>
   <body>
-    <h2>GraphQL</h2>
-    <div id="blogs"></div>
-
-    <br/>
-
-    <div id="post">
-      <h3>Post</h3>
-      <form id="post-form">
-        <div>
-          <label for="title">Title</label>
-          <input type="text" id="title" />
-        </div>
-        <div>
-          <label for="author">Author</label>
-          <input type="author" id="author" />
-        </div>
-        <button type="submit">Submit</button>
-    </div>
-
-    <br/>
-    <h1>Sms integration</h1>
     <div>
-      <h2>Register</h2>
-      <input type="text" name="user_email" placeholder="email" id="register-email"  />
-        <input type="text" name="user_phone" placeholder="phone" id="register-phone"  />
-        <input
-          type="password"
-          name="user_password"
-          placeholder="password"
-          id="register-password"
-          
-        />
-        <input
-          type="password"
-          name="user_confirm_password"
-          placeholder="confirn password"
-          id="register-confirm-password"
-          
-        />
-        <button type="submit" value="sign up" id="register-button">sign up</button>
-      <div id="register-info"></div>
-    </div>
-    <div>
-      <h2>login</h2>
-        <input type="text" name="user_email" placeholder="email" id="login-email"  />
-        <input
-          type="password"
-          name="user_password"
-          placeholder="password"
-          id="login-password"
-          
-        />
-        <button type="submit" id="login-button">Submit</button>
-      <div id="login-info"></div>
-    </div>
-    <div>
-      <h2>send sms</h2>
-        <input type="text" name="user_api_key" placeholder="api key" id="send-api-key"  />
-        <input
-          type="text"
-          name="sms_to_phone"
-          placeholder="phone number"
-          id="send-phone"
-          
-        />
-        <input
-          type="text"
-          name="sms_message"
-          placeholder="1 to 100 characters"
-          id="send-message"
-          
-        />
-        <button type="submit" value="send sms" id="send-button">send sms</button>
-      <div id="send-info"></div>
+      <h1>GraphQL</h1>
+      <div id="blogs"></div>
+
+      <br />
+
+      <div id="post">
+        <h3>Post</h3>
+        <label for="post-title">Title</label>
+        <input type="text" id="post-title" />
+
+        <label for="post-author">Author</label>
+        <input type="text" id="post-author" />
+
+        <button type="button" id="create-button">Submit</button>
+      </div>
+      <div id="update">
+        <h3>Update Blog</h3>
+        <label for="update-id">id</label>
+        <input type="text" id="update-id" />
+
+        <label for="update-title">Title</label>
+        <input type="text" id="update-title" />
+
+        <label for="update-author">Author</label>
+        <input type="author" id="update-author" />
+
+        <button type="button" id="update-button">Submit</button>
+      </div>
+      <div id="delete">
+        <h3>Delete Blog</h3>
+        <label for="delete-id">id</label>
+        <input type="text" id="delete-id" />
+
+        <button type="button" id="delete-button">Submit</button>
+      </div>
     </div>
     <script type="module" src="graphQL.js"></script>
-    <script src="sms.js"></script>
   </body>
 </html>

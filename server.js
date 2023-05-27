@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
+import http from 'http';
 
 import typeDefs from './graphQL/typeDefs.js';
 import resolvers from './graphQL/resolvers.js';
@@ -29,6 +30,35 @@ async function startServer() {
 }
 startServer();
 
+//failed subscription attempt
+/* 
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true,
+  context: ({ req, connection }) => {
+    if (connection && connection.context) {
+      console.log('Subscription connection:', connection.context);
+      return {}
+    } else {
+      return { req };
+    }
+  },
+  subscriptions: {
+    path: '/subscriptions', 
+    onConnect: (connectionParams, webSocket, context) => {
+      console.log('Client connected');
+    },
+    onDisconnect: (webSocket, context) => {
+      console.log('Client disconnected');
+    },
+  },
+});
+
+async function startServer() {
+  await server.start();
+  server.applyMiddleware({ app });
+} */
 
 //SMS
 app.post('/login', async (req, res) => {

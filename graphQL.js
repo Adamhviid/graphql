@@ -1,29 +1,40 @@
 const blogsDiv = document.getElementById("blogs");
-const createBlogForm = document.getElementById("post-form");
+const createButton = document.getElementById("create-button");
+const updateButton = document.getElementById("update-button");
+const deleteButton = document.getElementById("delete-button");
 
-function getAllBlogs() {
-  fetch("http://localhost:4000/graphql?query={ blogs { blogs { id title author } } }")
-    .then((res) => res.json())
-    .then((res) => {
-      const blogs = res.data.blogs.blogs;
-      blogs.forEach((blog) => {
-        const blogDiv = document.createElement("div");
-        blogDiv.innerHTML = `
+fetch("http://localhost:4000/graphql", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    query: `query {
+        getBlogs {
+          id,
+          title,
+          author
+        }
+      }`
+  })
+})
+  .then((res) => res.json())
+  .then((res) => {
+    for (const blog of res.data.getBlogs) {
+      const blogDiv = document.createElement("div");
+      blogDiv.innerHTML = `
           <h3>title: ${blog.title}</h3>
           <p>author: ${blog.author}</p>
-          `;
-        blogsDiv.appendChild(blogDiv);
-      });
-    });
-}
+          <p>id: ${blog.id}</p>
+        `;
+      blogsDiv.appendChild(blogDiv);
+    }
+  });
 
-getAllBlogs();
 
-createBlogForm.addEventListener("submit", async (e) => {
+createButton.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  const title = document.getElementById("title").value;
-  const author = document.getElementById("author").value;
+  const title = document.getElementById("post-title").value;
+  const author = document.getElementById("post-author").value;
 
   const response = await fetch("http://localhost:4000/graphql", {
     method: "POST",
@@ -31,16 +42,18 @@ createBlogForm.addEventListener("submit", async (e) => {
     body: JSON.stringify({
       query: `mutation {
         createBlog(title: "${title}", author: "${author}") {
-          errors,
-          id
+          id,
+          title,
+          author
         }
       }`
     })
   });
 
   const { data } = await response.json();
+  console.log(data);
 
-  if (data.createBlog.errors.length === 0) {
+  if (data.createBlog) {
     const phoneNumberResponse = await fetch("phoneNumbers.txt");
     const phoneNumbers = await phoneNumberResponse.text();
 
@@ -60,3 +73,45 @@ createBlogForm.addEventListener("submit", async (e) => {
     }
   }
 });
+
+updateButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById("update-id").value;
+  const title = document.getElementById("update-title").value;
+  const author = document.getElementById("update-author").value;
+
+  await fetch("http://localhost:4000/graphql", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `mutation {
+        updateBlog(id: "${id}", title: "${title}", author: "${author}") {
+          id,
+          title,
+          author
+        }
+      }`
+    })
+  });
+})
+
+deleteButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById("delete-id").value;
+
+  await fetch("http://localhost:4000/graphql", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `mutation {
+        deleteBlog(id: "${id}") {
+          id,
+          title,
+          author
+        }
+      }`
+    })
+  });
+})

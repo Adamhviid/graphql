@@ -1,40 +1,33 @@
-import { withFilter } from 'graphql-subscriptions';
-
 const blogs = [
   {
     id: 1,
-    title: 'The Awakening',
-    author: 'Kate Chopin',
+    title: 'The Shining',
+    author: 'Stephen King',
   },
   {
     id: 2,
-    title: 'City of Glass',
-    author: 'Paul Auster',
+    title: 'Lord of the Rings: The Fellowship of the Ring',
+    author: 'J.R.R. Tolkien',
   },
 ];
 
 const resolvers = {
   Query: {
-    blogs: () => {
-      return {
-        errors: [],
-        blogs: blogs
-      }
+    getBlogs() {
+      return blogs
     },
-    blog: (_, { blogId }) => {
-      const blog = blogs.find(b => b.id === parseInt(blogId));
+    getBlog: (_, { id }) => {
+      const blog = blogs.find(blog => blog.id === parseInt(id));
       if (!blog) {
         return {
-          errors: [`Blog with id ${blogId} not found`],
+          errors: [`Blog with id ${id} not found`],
           blog: null
         }
       }
-      return {
-        errors: [],
-        blog
-      }
+      return blog
     },
   },
+
   Mutation: {
     createBlog: (_, { title, author }) => {
       blogs.push({
@@ -43,18 +36,49 @@ const resolvers = {
         author,
       });
       return {
-        errors: [],
         id: blogs.length,
+        title: title,
+        author: author,
+      }
+    },
+    updateBlog: (_, { id, title, author }) => {
+      const blog = blogs.find(blog => blog.id === parseInt(id));
+      if (!blog) {
+        throw new Error(`Blog with id ${id} not found`)
+      }
+      const updatedBlog = {
+        id: blog.id,
+        title: title,
+        author: author,
+      };
+
+      const blogIndex = blogs.findIndex(blog => blog.id === parseInt(id));
+      blogs[blogIndex] = updatedBlog;
+      return {
+        id: updatedBlog.id,
+        title: updatedBlog.title,
+        author: updatedBlog.author,
+      }
+    },
+    deleteBlog: (_, { id }) => {
+      const blog = blogs.find(blog => blog.id === parseInt(id));
+      if (!blog) {
+        throw new Error(`Blog with id ${id} not found`)
+      }
+      const blogIndex = blogs.findIndex(blog => blog.id === parseInt(id));
+      blogs.splice(blogIndex, 1);
+      return {
+        id: blog.id,
+        title: blog.title,
+        author: blog.author,
       }
     },
   },
   Subscription: {
-    newBlog: {
-      subscribe(parent, args, { pubsub }) {
-        return pubsub.asyncIterator(['NEW_BLOG'])
-      }
+    blog: {
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator('blog')
     }
-  }
+  },
 };
 
 export default resolvers;
