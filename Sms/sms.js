@@ -63,7 +63,7 @@ sendButton.addEventListener("click", (e) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      user_api_key: "44c57d9e10a78193ee910bc323bfb5f2",
+      user_api_key: "API KEY HERE",
       sms_to_phone: sms_to_phone.value,
       sms_message: sms_message.value
     })

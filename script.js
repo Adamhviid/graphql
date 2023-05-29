@@ -54,7 +54,7 @@ createButton.addEventListener("click", async (e) => {
   console.log(data);
 
   if (data.createBlog) {
-    const phoneNumberResponse = await fetch("phoneNumbers.txt");
+    const phoneNumberResponse = await fetch("Sms/phoneNumbers.txt");
     const phoneNumbers = await phoneNumberResponse.text();
 
     const numbersArray = phoneNumbers.split("\n");

@@ -91,7 +91,7 @@ app.post('/send', async (req, res) => {
 
 app.listen(4000, function () {
   console.log(`server running on port 4000`);
-  console.log(`gql path is ${apolloServer.graphqlPath}`);
+  console.log(`gql path is localhost:4000${apolloServer.graphqlPath}`);
 });
 
 //failed subscription attempt
