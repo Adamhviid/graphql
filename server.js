@@ -95,8 +95,7 @@ app.listen(4000, function () {
 });
 
 //failed subscription attempt
-/* 
-const server = new ApolloServer({
+/* const server = new ApolloServer({
   typeDefs,
   resolvers,
   playground: true,
@@ -109,7 +108,7 @@ const server = new ApolloServer({
     }
   },
   subscriptions: {
-    path: '/subscriptions', 
+    path: '/subscriptions',
     onConnect: (connectionParams, webSocket, context) => {
       console.log('Client connected');
     },

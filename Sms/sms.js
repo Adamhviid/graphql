@@ -1,4 +1,5 @@
 const loginButton = document.getElementById("login-button");
+
 loginButton.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("login form submitted");
@@ -22,6 +23,7 @@ loginButton.addEventListener("click", (e) => {
 });
 
 const registerButton = document.getElementById("register-button");
+
 registerButton.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("register form submitted");
@@ -49,6 +51,7 @@ registerButton.addEventListener("click", (e) => {
 });
 
 const sendButton = document.getElementById("send-button");
+
 sendButton.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("send form submitted");

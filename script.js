@@ -65,7 +65,7 @@ createButton.addEventListener("click", async (e) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_api_key: "INSERT API KEY HERE",
+          user_api_key: "44c57d9e10a78193ee910bc323bfb5f2",
           sms_to_phone: number,
           sms_message: author + " just posted a new blog titled " + title
         })
